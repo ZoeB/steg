@@ -23,6 +23,11 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 
 			for (row = 0; row < 8; row++) {
 				data = charset[charOffset + row] & (1 << (7 - col));
+
+				if (data > 0) {
+					data = 1;
+				}
+
 				byte |= data << row;
 			}
 
