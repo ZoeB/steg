@@ -11,9 +11,9 @@ void readFont(FILE *inputFilePointer, FILE *outputFilePointer) {
 			} else {
 				putc(' ', outputFilePointer);
 			}
-
-			putc('\n', outputFilePointer);
 		}
+
+		putc('\n', outputFilePointer);
 	}
 }
 
