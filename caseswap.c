@@ -1,4 +1,4 @@
-/* Case swapper, by Zoe Blade */
+/* Case Swap, by Zoe Blade */
 
 #include <stdio.h>
 
