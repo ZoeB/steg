@@ -1,3 +1,5 @@
+Load a font file (8x8x96) and store it in memory
+
 For each char in message:
 	Read that letter from the font in memory
 
