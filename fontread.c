@@ -1,3 +1,5 @@
+/* Raw 1-bit 8x8 font reader, by Zoe Blade */
+
 #include <stdio.h>
 
 void readFont(FILE *inputFilePointer, FILE *outputFilePointer) {
