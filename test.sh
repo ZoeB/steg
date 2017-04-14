@@ -1,3 +1,3 @@
 #!/bin/sh
 
-echo 'Test' | ./caseswap | ./charstocolumns | ./fontread
+echo 'Test\c' | ./caseswap | ./charstocolumns | ./fontread
