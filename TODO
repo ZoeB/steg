@@ -2,5 +2,5 @@ atos (ASCII to sine waves / ASCII to sound)
 
 * Take ASCII string or stdin as input
 * Output five (at first) sine waves, one per row of rasterised text
-* Eventually read in arbitrary old 8-bit fonts
+* Eventually load arbitrary 8x8 font files (maybe SEUCK format, so I already have an editor?)
 * Eventually allow custom frequencies (16kHz, 17, 18, 19, and 20 should be fine to start wtih)
