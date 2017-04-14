@@ -1,0 +1,10 @@
+For each char in message:
+	Read that letter from the font in memory
+
+	For each column:
+		For each row:
+			Work out whether it's on or off
+			Set the oscillators on or off, correspondingly
+		Sum the oscillators (leave headroom)
+		Keep oscillating/summing for a pixel width's amount of time
+		Write it to a .wav or, failing that, .pcm file as you're going
