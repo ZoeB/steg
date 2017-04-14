@@ -6,7 +6,7 @@ void readFont(FILE *inputFilePointer, FILE *outputFilePointer) {
 
 	while ((character = getc(inputFilePointer)) != EOF) {
 		for (i = 0; i < 8; i++) {
-			if (character & (1 << i)) {
+			if (character & (1 << (7 - i))) {
 				putc('#', outputFilePointer);
 			} else {
 				putc(' ', outputFilePointer);
