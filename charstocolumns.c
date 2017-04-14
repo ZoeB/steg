@@ -39,7 +39,8 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	while (((c = getc(filePointer)) != EOF) && (i < 2048)) {
+	while (i < 2048) {
+		c = getc(filePointer);
 		charset[i] = c;
 		i++;
 	}
