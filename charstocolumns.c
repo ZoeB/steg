@@ -21,7 +21,7 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 			byte = 0;
 
 			for (row = 0; row < 8; row++) {
-				byte |= charset[charOffset + row] & (1 << (7 - col));
+				byte |= (charset[charOffset + row] & (1 << (7 - col))) << row;
 			}
 
 			putc(byte, outputFilePointer);
