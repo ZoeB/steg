@@ -6,6 +6,7 @@
 int c;
 int i;
 
+uint8_t byte;
 int charOffset;
 int col;
 int row;
@@ -17,9 +18,13 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 		charOffset = 8 * c;
 
 		for (col = 0; col < 8; col++) {
+			byte = 0;
+
 			for (row = 0; row < 8; row++) {
-				putc(charset[charOffset + row] & (1 << (7 - col)), outputFilePointer);
+				byte |= charset[charOffset + row] & (1 << (7 - col));
 			}
+
+			putc(byte, outputFilePointer);
 		}
 	}
 }
