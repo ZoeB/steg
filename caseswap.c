@@ -8,15 +8,13 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 	while ((c = getc(inputFilePointer)) != EOF) {
 		if (c > 0x40 && c < 0x5B) {
 			/* Uppercase */
-			putc(c | 0b00100000, outputFilePointer);
+			c |= 0b00100000;
 		} else if (c > 0x60 && c < 0x7B) {
 			/* Lowercase */
-			putc(c & 0b01011111, outputFilePointer);
-		} else {
-			putc(c, outputFilePointer);
+			c &= 0b01011111;
 		}
 
-		putc('\n', outputFilePointer);
+		putc(c, outputFilePointer);
 	}
 }
 
