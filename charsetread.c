@@ -1,4 +1,4 @@
-/* Raw 1-bit 8x8 font reader, by Zoe Blade */
+/* Raw 1-bit 8x8 charset reader, by Zoe Blade */
 
 #include <stdio.h>
 
