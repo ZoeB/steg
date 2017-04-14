@@ -11,17 +11,11 @@ For each char in message:
 		Keep oscillating/summing for a pixel width's amount of time
 		Write it to a .wav or, failing that, .pcm file as you're going
 
-The 8-pixel-row charsets, a standard byte tall, afford me the opportunity to not merely split this up into different functions, but different pipable programs.  So I could do this:
+The 8-pixel-row charsets, a standard byte tall, afford me the opportunity to not merely split this up into different functions, but different pipable programs:
 
-* Write a program to convert the charset to from PETSCII to ASCII order
-* Write a program to translate ASCII text into byte-long columns
+* Write an ASCII-to-PETSCII converter [Done]
+* Write a program to translate chars into byte-long columns
 * Write a program to translate that into ASCII art, vertical or horizontal, for testing purposes and bonus figlet clonage
 * Write a program to translate the binary columns into PCM data
-
-Or I could do this:
-
-* Write an ASCII-to-PETSCII converter
-* Write a program to translate PETSCII into byte-long columns (really, it's charset agnostic, it just goes by the byte numbers to look up)
-[The last two are the same.]
 
 The latter seems more generally useful for a C64-tinkerer such as myself.
