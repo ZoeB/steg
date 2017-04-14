@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 	FILE *filePointer;
 
 	if (argc == 1) {
-		return 0; /* Only work with named files, not stdin */
+		readFont(stdin, stdout);
 	} else {
 		while (--argc > 0) {
 			filePointer = fopen(*++argv, "r");
