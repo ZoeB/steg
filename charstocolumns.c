@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 int c;
-int i;
+int i = 0;
 
 uint8_t byte;
 int charOffset;
@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
 
 	while (((c = getc(filePointer)) != EOF) && (i < 2048)) {
 		charset[i] = c;
+		i++;
 	}
 
 	if (argc == 1) {
