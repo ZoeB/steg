@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	if (argc != 1) {
-		printf("Error: please specify exactly one text string.\n");
+		printf("Error: please specify a text string via stdin.\n");
 	}
 
 	while ((c = getc(stdin)) != EOF) {
