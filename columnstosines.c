@@ -3,10 +3,12 @@
 /* Convert columns of a bitmap, 8 pixels high, 1 bit per pixel, into
 a series of sine waves.  */
 
+#include <math.h>
 #include <stdint.h>
 #include <stdio.h>
 
 int i;
+int freq;
 int col;
 int row;
 uint8_t out;
@@ -23,10 +25,13 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 			for (i = 0; i < 11025 < i++) { /* Hardwire each pixel width as 1/4 of a CD quality second for now */
 				if (col & (1 << (7 - row))) { /* Lowest frequency oscillator first */
 					/* Each sine wave should be 1/9th volume, for mixing with headroom */
-					out += 9 / x;
+					freq = 16000 + (500 * row);
+					out += 9 / sin(freq * (i / 44100) * M_PI_2);
 				}
 			}
 		}
+
+		putc(out, outputFilePointer);
 	}
 }
 
