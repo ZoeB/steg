@@ -9,12 +9,12 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 		switch (c & 0b01110000) {
 		case 0b01000000: /* @ to o */
 		case 0b01010000: /* p to <- */
-			c -= 64;
+			c -= 64; /* Shift lowercase letters */
 			break;
 
 		case 0b01100000: /* _ to O */
 		case 0b01110000: /* P to thing */
-			c -= 32;
+			c -= 32; /* Shift uppercase letters */
 		}
 
 		putc(c, outputFilePointer);
