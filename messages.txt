@@ -1,1 +1,0 @@
-If you can't hear this, then a 32kHz sample rate is probably sufficient.
