@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo -n 'Commodore 64!' | ./caseswap | ./petsciitorom | ./charstocolumns | ./columnstosines
+echo -n $1 | ./caseswap | ./petsciitorom | ./charstocolumns | ./columnstosines
