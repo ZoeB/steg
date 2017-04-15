@@ -14,11 +14,11 @@ int charOffset;
 int col;
 int row;
 
-uint8_t charset[2048];
+uint8_t charset[768];
 
 void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 	while ((c = getc(inputFilePointer)) != EOF) {
-		charOffset = 8 * c;
+		charOffset = 8 * (c - 32);
 
 		for (col = 0; col < 8; col++) {
 			byte = 0;
@@ -38,13 +38,13 @@ int main(int argc, char *argv[]) {
 	FILE *filePointer;
 
 	/* Load charset into memory.  TODO: make it possible to specify which charset on the command line. */
-	filePointer = fopen("c64lower.bin", "r");
+	filePointer = fopen("c64ascii.bin", "r");
 
 	if (filePointer == NULL) {
 		return 1;
 	}
 
-	while (((c = getc(filePointer)) != EOF) && (i < 2048)) {
+	while (((c = getc(filePointer)) != EOF) && (i < 768)) {
 		charset[i] = c;
 		i++;
 	}
