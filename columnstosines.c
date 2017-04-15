@@ -21,8 +21,8 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 		/* Work out which oscillators are on for this column */
 		for (row = 0; row < 8; row++) {
 			if (col & (1 << (7 - col))) {
-				/* Each sine wave should be 1/6th volume, for mixing with headroom */
-				out += 6 / x;
+				/* Each sine wave should be 1/9th volume, for mixing with headroom */
+				out += 9 / x;
 			}
 		}
 	}
