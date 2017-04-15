@@ -32,7 +32,7 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 				}
 			}
 
-			out = mix * 255; /* Hardwire 8-bit quality for now */
+			out = (mix + 1) / 2 * 255; /* Hardwire 8-bit quality for now */
 			putc(out, outputFilePointer);
 		}
 	}
