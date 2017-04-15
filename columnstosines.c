@@ -35,7 +35,7 @@ void convert(FILE *inputFilePointer) {
 				}
 			}
 
-			out = floor((mix + 1) / 2 * 65535); /* Hardwire 8-bit quality for now */
+			out = floor(mix * 32767); /* Convert waveform into signed 16-bit integer */
 			wavfile_write(wav, &out, 1);
 		}
 	}
