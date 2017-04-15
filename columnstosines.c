@@ -14,6 +14,8 @@ float sample;
 int freq;
 int col;
 int row;
+int numberOfCopies = 4;
+int copy;
 float pixel;
 float mix;
 short out;
@@ -24,23 +26,27 @@ void convert(FILE *inputFilePointer) {
 	/* Loop through each column of the bitmap */
 	while ((col = getc(inputFilePointer)) != EOF) {
 		/* Loop through each sample */
-		for (sample = 0; sample < 11025; i++) { /* Hardwire each pixel width as 1/4 of a CD quality second for now */
+		for (sample = 0; sample < 11025; sample++) { /* Hardwire each pixel width as 1/4 of a CD quality second for now */
 			mix = 0;
 
 			/* Work out which oscillators are on for this column */
 			for (row = 0; row < 8; row++) {
 				if (col & (1 << (7 - row))) { /* Lowest frequency oscillator first */
 					freq = 16000 + (500 * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
-					/* TODO: Work out why the frequency needs to be multiplied by 4. */
-					pixel = sin(freq * 4 * (sample / 44100.0) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
-					pixel += sin((freq + 250) * 4 * (sample / 44100.0) * M_PI_2); /* Double the number of lines by doubling up each row, at 250Hz intervals */
-					pixel /= 2;
+					pixel = 0;
+
+					for (copy = 0; copy < numberOfCopies; copy++) {
+						/* TODO: Work out why the frequency needs to be multiplied by 4. */
+						pixel += sin((freq + (500 / numberOfCopies * copy)) * 4 * (sample / 44100.0) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
+					}
+
+					pixel /= numberOfCopies;
 
 					/* Fuzz off the edges of each pixel to avoid noise bursts */
 					if (sample < 2757) {
-						pixel = pixel / 2727 * i;
+						pixel = pixel / 2727 * sample;
 					} else if (sample > 8268) {
-						pixel = pixel / 2727 * (11025 - i);
+						pixel = pixel / 2727 * (11025 - sample);
 					}
 
 					mix += (1.0 / 9.0) * pixel; /* Each sine wave should be 1/9th volume, for mixing with headroom */
