@@ -25,9 +25,9 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 			/* Work out which oscillators are on for this column */
 			for (row = 0; row < 8; row++) {
 				if (col & (1 << (7 - row))) { /* Lowest frequency oscillator first */
-					/* Each sine wave should be 1/9th volume, for mixing with headroom */
 					freq = 16000 + (500 * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
-					mix += 9 / sin(freq * (i / 44100) * M_PI_2); /* Hardwire CD quality sample rate for now */
+					/* Each sine wave should be 1/9th volume, for mixing with headroom */
+					mix += (1 / 9) * sin(freq * (i / 44100) * M_PI_2); /* Hardwire CD quality sample rate for now */
 				}
 			}
 		}
