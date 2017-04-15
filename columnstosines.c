@@ -33,6 +33,14 @@ void convert(FILE *inputFilePointer) {
 					freq = 16000 + (500 * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
 					freq *= 4; /* I don't know why this is needed.  TODO: Figure this out! */
 					pixel = sin(freq * (i / 44100.0) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
+
+					/* Fuzz off the edges of each pixel to avoid noise bursts */
+					if (i < 2757) {
+						pixel = pixel / 2727 * i;
+					} else if (i > 8268) {
+						pixel = pixel / 2727 * (11025 - i);
+					}
+
 					mix += (1.0 / 9.0) * pixel; /* Each sine wave should be 1/9th volume, for mixing with headroom */
 				}
 			}
