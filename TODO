@@ -1,6 +1,21 @@
-atos (ASCII to sine waves / ASCII to sound)
+Load a font file (8x8x64) and store it in memory
 
-* Take ASCII string or stdin as input
-* Output five (at first) sine waves, one per row of rasterised text
-* Load arbitrary 8x8 font files (SEUCK format, so I already have an editor)
-* Eventually allow custom frequencies (16kHz, 17, 18, 19, and 20 should be fine to start wtih)
+For each char in message:
+	Read that letter from the font in memory
+
+	For each column:
+		For each row:
+			Work out whether it's on or off
+			Set the oscillators on or off, correspondingly
+		Sum the oscillators (leave headroom)
+		Keep oscillating/summing for a pixel width's amount of time
+		Write it to a .wav or, failing that, .pcm file as you're going
+
+The 8-pixel-row charsets, a standard byte tall, afford me the opportunity to not merely split this up into different functions, but different pipable programs:
+
+* Write an ASCII-to-PETSCII converter [Done]
+* Write a program to translate chars into byte-long columns
+* Write a program to translate that into ASCII art, vertical or horizontal, for testing purposes and bonus figlet clonage
+* Write a program to translate the binary columns into PCM data
+
+The latter seems more generally useful for a C64-tinkerer such as myself.
