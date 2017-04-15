@@ -1,14 +1,2 @@
-For each column:
-	For each row:
-		Work out whether it's on or off
-		Set the oscillators on or off, correspondingly
-	Sum the oscillators (leave headroom)
-	Keep oscillating/summing for a pixel width's amount of time
-	Write it to a .pcm file as you're going
-
-The 8-pixel-row charsets, a standard byte tall, afford me the opportunity to not merely split this up into different functions, but different pipable programs:
-
-* Write an ASCII-to-PETSCII converter [DONE]
-* Write a program to translate chars into byte-long columns [DONE]
-* Write a program to translate that into ASCII art, vertical [DONE] or horizontal [TODO], for testing purposes and bonus figlet clonage
-* Write a program to translate the binary columns into PCM data [TODO]
+Fix it being 1/4 of the target frequency
+Fix columns / noise bursts at start and end of each pixel column
