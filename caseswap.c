@@ -1,5 +1,7 @@
 /* Case Swap, by Zoe Blade */
 
+/* Convert uppercase letters to lowercase and vice versa. */
+
 #include <stdio.h>
 
 void convert(FILE *inputFilePointer, FILE *outputFilePointer) {

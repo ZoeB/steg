@@ -1,5 +1,7 @@
 /* PETSCII to ROM, by Zoe Blade */
 
+/* Convert case-swapped ASCII numbers into C64 ROM chip order pages. */
+
 #include <stdio.h>
 
 void convert(FILE *inputFilePointer, FILE *outputFilePointer) {

@@ -1,5 +1,8 @@
 /* Chars to Columns, by Zoe Blade */
 
+/* Convert characters into columns, one pipeable byte each, of a
+bitmap, 8 pixels high, 8 pixels wide per character, 1 bit per pixel. */
+
 #include <stdint.h>
 #include <stdio.h>
 

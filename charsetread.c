@@ -1,5 +1,8 @@
 /* Raw 1-bit 8x8 charset reader, by Zoe Blade */
 
+/* Read 1-bit-per-pixel, 8-pixels-wide bitmap artwork and display it
+as ASCII art*/
+
 #include <stdio.h>
 
 void readFont(FILE *inputFilePointer, FILE *outputFilePointer) {
