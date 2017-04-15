@@ -1,1 +1,12 @@
 Understand/fix it being 1/4 of the target frequency
+
+Allow command line options:
+* Anything not matching the following should be considered part of the message
+* Options may proceed the message, in the form -[letter] [option]
+* -f fundamental harmonic in Hz
+* -h harmonic spacing in Hz
+* -d number of times to duplicate each line
+* -w width of each pixel in samples
+* [Height fuzz option]
+* [Width fuzz option]
+* -c charset filename (768 byte binary file)
