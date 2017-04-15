@@ -49,6 +49,11 @@ void convert(FILE *inputFilePointer) {
 						pixel = pixel / 2727 * (11025 - sample);
 					}
 
+					/* Fuzz off the top and bottom rows too */
+					if (copy == 0 || copy == numberOfCopies - 1) {
+						pixel /= 2;
+					}
+
 					mix += (1.0 / 9.0) * pixel; /* Each sine wave should be 1/9th volume, for mixing with headroom */
 				}
 			}
