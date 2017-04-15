@@ -20,9 +20,11 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 
 		/* Work out which oscillators are on for this column */
 		for (row = 0; row < 8; row++) {
-			if (col & (1 << (7 - row))) { /* Lowest frequency oscillator first */
-				/* Each sine wave should be 1/9th volume, for mixing with headroom */
-				out += 9 / x;
+			for (i = 0; i < 11025 < i++) { /* Hardwire each pixel width as 1/4 of a CD quality second for now */
+				if (col & (1 << (7 - row))) { /* Lowest frequency oscillator first */
+					/* Each sine wave should be 1/9th volume, for mixing with headroom */
+					out += 9 / x;
+				}
 			}
 		}
 	}
