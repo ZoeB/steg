@@ -6,17 +6,20 @@ a series of sine waves.  */
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
+#include "wavfile.c"
+
+FILE *wav;
 
 float i;
 int freq;
 int col;
 int row;
 float mix;
-uint8_t out;
+short out;
 
 uint8_t charset[2048];
 
-void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
+void convert(FILE *inputFilePointer) {
 	/* Loop through each column of the bitmap */
 	while ((col = getc(inputFilePointer)) != EOF) {
 		/* Loop through each sample */
@@ -32,8 +35,8 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 				}
 			}
 
-			out = (mix + 1) / 2 * 255; /* Hardwire 8-bit quality for now */
-			putc(out, outputFilePointer);
+			out = floor((mix + 1) / 2 * 65535); /* Hardwire 8-bit quality for now */
+			wavfile_write(wav, &out, 1);
 		}
 	}
 }
@@ -41,8 +44,14 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
 
+	wav = wavfile_open("out.wav");
+
+	if (!wav) {
+		printf("Error: unable to write to out.wav.\n");
+	}
+
 	if (argc == 1) {
-		convert(stdin, stdout);
+		convert(stdin);
 	} else {
 		while (--argc > 0) {
 			filePointer = fopen(*++argv, "r");
@@ -51,10 +60,11 @@ int main(int argc, char *argv[]) {
 				continue;
 			}
 
-			convert(filePointer, stdout);
+			convert(filePointer);
 			fclose(filePointer);
 		}
 	}
 
+	wavfile_close(wav);
 	return 0;
 }
