@@ -14,6 +14,7 @@ float i;
 int freq;
 int col;
 int row;
+float pixel;
 float mix;
 short out;
 
@@ -31,8 +32,8 @@ void convert(FILE *inputFilePointer) {
 				if (col & (1 << (7 - row))) { /* Lowest frequency oscillator first */
 					freq = 16000 + (500 * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
 					freq *= 4; /* I don't know why this is needed.  TODO: Figure this out! */
-					/* Each sine wave should be 1/9th volume, for mixing with headroom */
-					mix += (1.0 / 9.0) * sin(freq * (i / 44100.0) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
+					pixel = sin(freq * (i / 44100.0) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
+					mix += (1.0 / 9.0) * pixel; /* Each sine wave should be 1/9th volume, for mixing with headroom */
 				}
 			}
 
