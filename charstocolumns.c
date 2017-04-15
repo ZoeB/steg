@@ -18,6 +18,12 @@ uint8_t charset[768];
 
 void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 	while ((c = getc(inputFilePointer)) != EOF) {
+		/* Only display printable ASCII characters */
+		if (c < 32 || c >= 160) {
+			continue;
+		}
+
+		/* The character set file should only contain printable ASCII characters */
 		charOffset = 8 * (c - 32);
 
 		for (col = 0; col < 8; col++) {
