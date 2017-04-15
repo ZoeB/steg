@@ -26,13 +26,13 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 			for (row = 0; row < 8; row++) {
 				if (col & (1 << (7 - row))) { /* Lowest frequency oscillator first */
 					/* Each sine wave should be 1/9th volume, for mixing with headroom */
-					freq = 16000 + (500 * row);
-					mix += 9 / sin(freq * (i / 44100) * M_PI_2);
+					freq = 16000 + (500 * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
+					mix += 9 / sin(freq * (i / 44100) * M_PI_2); /* Hardwire CD quality sample rate for now */
 				}
 			}
 		}
 
-		out = mix * 255;
+		out = mix * 255; /* Hardwire 8-bit quality for now */
 		putc(out, outputFilePointer);
 	}
 }
