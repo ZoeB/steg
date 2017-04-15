@@ -19,9 +19,10 @@ uint8_t charset[2048];
 void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 	/* Loop through each column of the bitmap */
 	while ((col = getc(inputFilePointer)) != EOF) {
-		mix = 0;
-
+		/* Loop through each sample */
 		for (i = 0; i < 11025; i++) { /* Hardwire each pixel width as 1/4 of a CD quality second for now */
+			mix = 0;
+
 			/* Work out which oscillators are on for this column */
 			for (row = 0; row < 8; row++) {
 				if (col & (1 << (7 - row))) { /* Lowest frequency oscillator first */
