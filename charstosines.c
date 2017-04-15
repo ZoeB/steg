@@ -12,6 +12,12 @@ FILE *wav;
 
 uint8_t charset[768];
 
+int c;
+int i = 0;
+
+uint8_t byte;
+int charOffset;
+
 float sample;
 int freq;
 int col;
@@ -21,8 +27,6 @@ int copy;
 float pixel;
 float mix;
 short out;
-
-uint8_t charset[2048];
 
 void convert(FILE *inputFilePointer) {
 	/* Loop through each column of the bitmap */
@@ -93,7 +97,28 @@ int main(int argc, char *argv[]) {
 		printf("Error: please specify exactly one text string.\n");
 	}
 
-	convert(stdin);
+	while ((c = getc(stdin)) != EOF) {
+		/* Only display printable ASCII characters */
+		if (c < 32 || c >= 160) {
+			continue;
+		}
+
+		/* The character set file should only contain printable ASCII characters */
+		charOffset = 8 * (c - 32);
+
+		for (col = 0; col < 8; col++) {
+			byte = 0;
+
+			for (row = 0; row < 8; row++) {
+				if (charset[charOffset + row] & (1 << (7 - col))) {
+					byte |= 1 << row;
+				}
+			}
+
+			convert(byte);
+		}
+	}
+
 	wavfile_close(wav);
 	return 0;
 }
