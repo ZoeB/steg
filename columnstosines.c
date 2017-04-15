@@ -11,6 +11,7 @@ int i;
 int freq;
 int col;
 int row;
+float mix;
 uint8_t out;
 
 uint8_t charset[2048];
@@ -18,7 +19,7 @@ uint8_t charset[2048];
 void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 	/* Loop through each column of the bitmap */
 	while ((col = getc(inputFilePointer)) != EOF) {
-		out = 0;
+		mix = 0;
 
 		for (i = 0; i < 11025; i++) { /* Hardwire each pixel width as 1/4 of a CD quality second for now */
 			/* Work out which oscillators are on for this column */
@@ -26,11 +27,12 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 				if (col & (1 << (7 - row))) { /* Lowest frequency oscillator first */
 					/* Each sine wave should be 1/9th volume, for mixing with headroom */
 					freq = 16000 + (500 * row);
-					out += 9 / sin(freq * (i / 44100) * M_PI_2);
+					mix += 9 / sin(freq * (i / 44100) * M_PI_2);
 				}
 			}
 		}
 
+		out = mix * 255;
 		putc(out, outputFilePointer);
 	}
 }
