@@ -30,10 +30,10 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 					mix += (1 / 9) * sin(freq * (i / 44100) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
 				}
 			}
-		}
 
-		out = mix * 255; /* Hardwire 8-bit quality for now */
-		putc(out, outputFilePointer);
+			out = mix * 255; /* Hardwire 8-bit quality for now */
+			putc(out, outputFilePointer);
+		}
 	}
 }
 
