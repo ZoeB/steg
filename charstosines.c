@@ -10,6 +10,8 @@ a series of sine waves.  */
 
 FILE *wav;
 
+uint8_t charset[768];
+
 float sample;
 int freq;
 int col;
@@ -67,27 +69,31 @@ void convert(FILE *inputFilePointer) {
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
 
+	/* Load charset into memory.  TODO: make it possible to specify which charset on the command line. */
+	filePointer = fopen("c64ascii.bin", "r");
+
+	if (filePointer == NULL) {
+		return 1;
+	}
+
+	while (((c = getc(filePointer)) != EOF) && (i < 768)) {
+		charset[i] = c;
+		i++;
+	}
+
+	fclose(filePointer);
+
 	wav = wavfile_open("out.wav");
 
 	if (!wav) {
 		printf("Error: unable to write to out.wav.\n");
 	}
 
-	if (argc == 1) {
-		convert(stdin);
-	} else {
-		while (--argc > 0) {
-			filePointer = fopen(*++argv, "r");
-
-			if (filePointer == NULL) {
-				continue;
-			}
-
-			convert(filePointer);
-			fclose(filePointer);
-		}
+	if (argc != 1) {
+		printf("Error: please specify exactly one text string.\n");
 	}
 
+	convert(stdin);
 	wavfile_close(wav);
 	return 0;
 }
