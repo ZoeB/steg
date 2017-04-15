@@ -7,7 +7,6 @@ a series of sine waves.  */
 #include <stdio.h>
 
 int c;
-int i = 0;
 
 uint8_t byte;
 int charOffset;
@@ -36,18 +35,6 @@ void convert(FILE *inputFilePointer, FILE *outputFilePointer) {
 
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
-
-	/* Load charset into memory.  TODO: make it possible to specify which charset on the command line. */
-	filePointer = fopen("c64lower.bin", "r");
-
-	if (filePointer == NULL) {
-		return 1;
-	}
-
-	while (((c = getc(filePointer)) != EOF) && (i < 2048)) {
-		charset[i] = c;
-		i++;
-	}
 
 	if (argc == 1) {
 		convert(stdin, stdout);
