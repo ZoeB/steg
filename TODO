@@ -9,4 +9,4 @@ Allow command line options:
 * -w width of each pixel in samples
 * [Height fuzz option]
 * [Width fuzz option]
-* -c charset filename (768 byte binary file)
+* -c charset name
