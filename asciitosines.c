@@ -1,4 +1,4 @@
-/* Columns to Sines, by Zoe Blade */
+/* ASCII to Sines, by Zoe Blade */
 
 /* Convert columns of a bitmap, 8 pixels high, 1 bit per pixel, into
 a series of sine waves.  */
