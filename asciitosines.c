@@ -6,7 +6,11 @@ a series of sine waves.  */
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <unistd.h>
+
 #include "wavfile.c"
+
+void usage();
 
 FILE *wav;
 
@@ -92,9 +96,38 @@ int copy;
 float pixel;
 float mix;
 short out;
+char var;
 
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
+
+	while ((var = getopt(argc, argv, "cdfhosw")) != -1) {
+		switch (var) {
+		case 'c':
+			break;
+
+		case 'd':
+			break;
+
+		case 'f':
+			break;
+
+		case 'h':
+			break;
+
+		case 'o':
+			break;
+
+		case 's':
+			break;
+
+		case 'w':
+			break;
+
+		default:
+			usage();
+		}
+	}
 
 	wav = wavfile_open("out.wav");
 
@@ -165,4 +198,9 @@ int main(int argc, char *argv[]) {
 
 	wavfile_close(wav);
 	return 0;
+}
+
+void usage() {
+	fprintf(stderr, "atos [-cdfhosw] message\n");
+	exit(1);
 }
