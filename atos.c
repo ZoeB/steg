@@ -205,9 +205,10 @@ void usage() {
 	fprintf(stderr, "usage: atos [-cdfhosw] message\n\n");
 	fprintf(stderr, "OPTIONS:\n");
 	fprintf(stderr, "    -c charset      charset to use, default c64\n");
-	fprintf(stderr, "    -d n            duplicates of each line, default 4\n");
+	fprintf(stderr, "    -d n            duplicates of each line, including original, default 4\n");
 	fprintf(stderr, "    -f n            fundamental harmonic in Hz, default 16000\n");
-	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), default 500\n");
+	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), default\n");
+	fprintf(stderr, "                    500\n");
 	fprintf(stderr, "    -o filename     file to write to, default out.wav\n");
 	fprintf(stderr, "    -s n            samplerate in Hz, default 44100\n");
 	fprintf(stderr, "    -w n            width of each pixel in samples, default 11025\n\n");
