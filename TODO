@@ -1,4 +1,5 @@
 Understand/fix it being 1/4 of the target frequency
+Only fade in/out when the adjacent pixel is off
 
 Allow command line options:
 * Anything not matching the following should be considered part of the message
