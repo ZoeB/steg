@@ -80,7 +80,7 @@ uint8_t charset[768] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-int c;
+char c;
 int i = 0;
 int j;
 int messageLength;
@@ -199,10 +199,10 @@ int main(int argc, char *argv[]) {
 	messageLength = strlen(*argv);
 
 	for (j = 0; j < messageLength; j++) {
-		c = *argv[0]++; /* TODO: iterate over the last argument string properly! */
+		c = *argv[j];
 
 		/* Only display printable ASCII characters */
-		if (c < 32 || c >= 160) {
+		if (c < 32 || c >= 126) {
 			continue;
 		}
 
