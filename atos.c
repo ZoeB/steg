@@ -82,6 +82,8 @@ uint8_t charset[768] = {
 
 int c;
 int i = 0;
+int j;
+int messageLength;
 
 uint8_t byte;
 int charOffset;
@@ -194,14 +196,11 @@ int main(int argc, char *argv[]) {
 	}
 
 	argv += argc - 1;
-	printf("Arg: %s\n", *argv);
-	exit(0);
+	messageLength = strlen(*argv);
 
-	if (argc != 1) {
-		printf("Error: please specify a text string via stdin.\n");
-	}
+	for (j = 0; j < messageLength; j++) {
+		c = *argv[j];
 
-	while ((c = getc(stdin)) != EOF) {
 		/* Only display printable ASCII characters */
 		if (c < 32 || c >= 160) {
 			continue;
