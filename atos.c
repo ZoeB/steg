@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "wavfile.c"
@@ -104,11 +105,14 @@ int value;
 int duplicates = 4;
 int fundamental = 16000;
 int harmonicSpacing = 500;
+char output[72];
 float samplerate = 44100; /* Ideally, this should be an int, but if I change it to an int, I should check if I need to e.g. multiply it by 1.0 in order to get the formula using it to output a float. */
 int width = 11025;
 
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
+
+	strcpy(output, "out.wav");
 
 	if (argc == 1) {
 		/* Require a message to encode */
@@ -153,7 +157,7 @@ int main(int argc, char *argv[]) {
 			break;
 
 		case 'o':
-			/* TODO: implement writing to a custom filename. */
+			strcpy(output, optarg);
 			break;
 
 		case 's':
@@ -183,10 +187,10 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	wav = wavfile_open("out.wav");
+	wav = wavfile_open(output);
 
 	if (!wav) {
-		fprintf(stderr, "Error: unable to write to out.wav.\n");
+		fprintf(stderr, "Error: unable to write to %s.\n", output);
 		exit(1);
 	}
 
