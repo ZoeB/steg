@@ -80,8 +80,9 @@ uint8_t charset[768] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-int i = 0;
 char c;
+int i = 0;
+int j;
 int messageLength;
 
 uint8_t byte;
@@ -195,13 +196,13 @@ int main(int argc, char *argv[]) {
 	}
 
 	argv += argc - 1;
+	messageLength = strlen(*argv);
 
-	while (*argv != '\0') {
-		c = *argv[0];
-		argv++;
+	for (j = 0; j < messageLength; j++) {
+		c = *argv[j];
 
 		/* Only display printable ASCII characters */
-		if (c < 32 || c > 126) {
+		if (c < 32 || c >= 126) {
 			continue;
 		}
 
