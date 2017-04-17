@@ -91,12 +91,13 @@ float sample;
 int freq;
 int col;
 int row;
-int numberOfCopies = 4;
+int duplicates = 4;
 int copy;
 float pixel;
 float mix;
 short out;
 char var;
+int value;
 
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
@@ -106,12 +107,20 @@ int main(int argc, char *argv[]) {
 		usage();
 	}
 
-	while ((var = getopt(argc, argv, "cdfhosw")) != -1) {
+	while ((var = getopt(argc, argv, "c:d:f:h:o:s:w:")) != -1) {
 		switch (var) {
 		case 'c':
 			break;
 
 		case 'd':
+			value = atoi(optarg);
+
+			if (value < 1 || value > 4) {
+				fprintf(stderr, "d should be an integer between 1 and 4.\n");
+				exit(1);
+			}
+
+			duplicates = value;
 			break;
 
 		case 'f':
@@ -172,12 +181,12 @@ int main(int argc, char *argv[]) {
 						freq = 16000 + (500 * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
 						pixel = 0;
 
-						for (copy = 0; copy < numberOfCopies; copy++) {
+						for (copy = 0; copy < duplicates; copy++) {
 							/* TODO: Work out why the frequency needs to be multiplied by 4. */
-							pixel += sin((freq + (500 / numberOfCopies * copy)) * 4 * (sample / 44100.0) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
+							pixel += sin((freq + (500 / duplicates * copy)) * 4 * (sample / 44100.0) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
 						}
 
-						pixel /= numberOfCopies;
+						pixel /= duplicates;
 
 						/* Fuzz off the edges of each pixel to avoid noise bursts */
 						if (sample < 2757) {
@@ -187,7 +196,7 @@ int main(int argc, char *argv[]) {
 						}
 
 						/* Fuzz off the top and bottom rows too */
-						if (copy == 0 || copy == numberOfCopies - 1) {
+						if (copy == 0 || copy == duplicates - 1) {
 							pixel /= 2;
 						}
 
