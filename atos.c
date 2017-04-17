@@ -102,6 +102,7 @@ int value;
 int duplicates = 4;
 int fundamental = 16000;
 int harmonicSpacing = 500;
+float samplerate = 44100; /* Ideally, this should be an int, but if I change it to an int, I should check if I need to e.g. multiply it by 1.0 in order to get the formula using it to output a float. */
 
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
@@ -150,6 +151,14 @@ int main(int argc, char *argv[]) {
 			break;
 
 		case 's':
+			value = atoi(optarg);
+
+			if (value < 8000 || value > 48000) {
+				fprintf(stderr, "s should be an integer between 8000 and 48000.\n");
+				exit(1);
+			}
+
+			samplerate = value;
 			break;
 
 		case 'w':
@@ -200,7 +209,7 @@ int main(int argc, char *argv[]) {
 
 						for (copy = 0; copy < duplicates; copy++) {
 							/* TODO: Work out why the frequency needs to be multiplied by 4. */
-							pixel += sin((freq + (harmonicSpacing / duplicates * copy)) * 4 * (sample / 44100.0) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
+							pixel += sin((freq + (harmonicSpacing / duplicates * copy)) * 4 * (sample / samplerate) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
 						}
 
 						pixel /= duplicates;
