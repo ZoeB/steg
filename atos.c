@@ -96,7 +96,6 @@ float mix;
 short out;
 
 char var;
-int varc = 0;
 int value;
 
 int duplicates = 4;
@@ -114,8 +113,6 @@ int main(int argc, char *argv[]) {
 	}
 
 	while ((var = getopt(argc, argv, "d:f:h:o:s:w:")) != -1) {
-		varc++;
-
 		switch (var) {
 		case 'd':
 			value = atoi(optarg);
@@ -185,12 +182,6 @@ int main(int argc, char *argv[]) {
 
 	if (!wav) {
 		printf("Error: unable to write to out.wav.\n");
-	}
-
-	argc -= varc * 2; /* TODO: find out whether there's a better way to avoid parsing other arguments as part of the main message */
-
-	while (--argc > 0) {
-		printf("Arg: %s\n", *++argv);
 	}
 
 	if (argc != 1) {
