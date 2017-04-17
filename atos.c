@@ -200,7 +200,7 @@ int main(int argc, char *argv[]) {
 		c = *argv[0]++;
 
 		/* Only display printable ASCII characters */
-		if (c < 32 || c >= 160) {
+		if (c < 32 || c > 126) {
 			continue;
 		}
 
