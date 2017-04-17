@@ -103,6 +103,7 @@ int duplicates = 4;
 int fundamental = 16000;
 int harmonicSpacing = 500;
 float samplerate = 44100; /* Ideally, this should be an int, but if I change it to an int, I should check if I need to e.g. multiply it by 1.0 in order to get the formula using it to output a float. */
+int width = 11025;
 
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
@@ -162,6 +163,14 @@ int main(int argc, char *argv[]) {
 			break;
 
 		case 'w':
+			value = atoi(optarg);
+
+			if (value < 1 || value > 64000) {
+				fprintf(stderr, "w should be an integer between 1 and 64000.\n");
+				exit(1);
+			}
+
+			width = value;
 			break;
 
 		default:
@@ -198,7 +207,7 @@ int main(int argc, char *argv[]) {
 			}
 
 			/* Loop through each sample */
-			for (sample = 0; sample < 11025; sample++) { /* Hardwire each pixel width as 1/4 of a CD quality second for now */
+			for (sample = 0; sample < width; sample++) { /* Hardwire each pixel width as 1/4 of a CD quality second for now */
 				mix = 0;
 
 				/* Work out which oscillators are on for this column */
@@ -218,7 +227,7 @@ int main(int argc, char *argv[]) {
 						if (sample < 2757) {
 							pixel = pixel / 2727 * sample;
 						} else if (sample > 8268) {
-							pixel = pixel / 2727 * (11025 - sample);
+							pixel = pixel / 2727 * (width - sample);
 						}
 
 						/* Fuzz off the top and bottom rows too */
