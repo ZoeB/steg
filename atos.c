@@ -184,7 +184,8 @@ int main(int argc, char *argv[]) {
 	wav = wavfile_open("out.wav");
 
 	if (!wav) {
-		printf("Error: unable to write to out.wav.\n");
+		fprintf(stderr, "Error: unable to write to out.wav.\n");
+		exit(1);
 	}
 
 	if (argc != (varc * 2) + 2) {
