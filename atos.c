@@ -148,6 +148,7 @@ int main(int argc, char *argv[]) {
 			break;
 
 		case 'o':
+			/* TODO: implement writing to a custom filename. */
 			break;
 
 		case 's':
