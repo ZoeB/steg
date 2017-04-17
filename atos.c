@@ -197,7 +197,8 @@ int main(int argc, char *argv[]) {
 	argv += argc - 1;
 
 	while (*argv != '\0') {
-		c = *argv[0]++;
+		c = *argv[0];
+		argv++;
 
 		/* Only display printable ASCII characters */
 		if (c < 32 || c > 126) {
