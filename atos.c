@@ -107,11 +107,8 @@ int main(int argc, char *argv[]) {
 		usage();
 	}
 
-	while ((var = getopt(argc, argv, "c:d:f:h:o:s:w:")) != -1) {
+	while ((var = getopt(argc, argv, "d:f:h:o:s:w:")) != -1) {
 		switch (var) {
-		case 'c':
-			break;
-
 		case 'd':
 			value = atoi(optarg);
 
@@ -216,9 +213,8 @@ int main(int argc, char *argv[]) {
 
 void usage() {
 	fprintf(stderr, "ASCII to Sines, by Zoe Blade\n\n");
-	fprintf(stderr, "usage: atos [-cdfhosw] message\n\n");
+	fprintf(stderr, "usage: atos [-dfhosw] message\n\n");
 	fprintf(stderr, "OPTIONS:\n");
-	fprintf(stderr, "    -c charset      charset to use, default c64\n");
 	fprintf(stderr, "    -d n            duplicates of each line, including original, default 4\n");
 	fprintf(stderr, "    -f n            fundamental harmonic in Hz, default 16000\n");
 	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), default\n");
