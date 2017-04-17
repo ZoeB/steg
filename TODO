@@ -3,7 +3,6 @@ Only fade in/out when the adjacent pixel is off
 
 Allow command line options:
 * Anything not matching the following should be considered part of the message
-* -h harmonic spacing in Hz (height of each pixel in Hz)
 * -o filename to write to
 * -s samplerate in Hz
 * -w width of each pixel in samples
