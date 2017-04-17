@@ -187,11 +187,14 @@ int main(int argc, char *argv[]) {
 		printf("Error: unable to write to out.wav.\n");
 	}
 
-	argc -= varc * 2; /* TODO: find out whether there's a better way to avoid parsing other arguments as part of the main message */
-
-	while (--argc > 0) {
-		printf("Arg: %s\n", *++argv);
+	if (argc != (varc * 2) + 2) {
+		fprintf(stderr, "Please specify exactly one message to encode.\n");
+		exit(1);
 	}
+
+	argv += argc - 1;
+	printf("Arg: %s\n", *argv);
+	exit(0);
 
 	if (argc != 1) {
 		printf("Error: please specify a text string via stdin.\n");
