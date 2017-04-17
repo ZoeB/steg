@@ -199,7 +199,7 @@ int main(int argc, char *argv[]) {
 	messageLength = strlen(*argv);
 
 	for (j = 0; j < messageLength; j++) {
-		c = *argv[j];
+		c = *argv[0]++;
 
 		/* Only display printable ASCII characters */
 		if (c < 32 || c >= 160) {
