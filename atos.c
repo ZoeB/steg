@@ -101,6 +101,11 @@ char var;
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
 
+	if (argc == 1) {
+		/* Require a message to encode */
+		usage();
+	}
+
 	while ((var = getopt(argc, argv, "cdfhosw")) != -1) {
 		switch (var) {
 		case 'c':
