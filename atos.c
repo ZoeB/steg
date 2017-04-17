@@ -91,13 +91,16 @@ float sample;
 int freq;
 int col;
 int row;
-int duplicates = 4;
 int copy;
 float pixel;
 float mix;
 short out;
+
 char var;
 int value;
+
+int duplicates = 4;
+int fundamental = 16000;
 
 int main(int argc, char *argv[]) {
 	FILE *filePointer;
@@ -121,6 +124,14 @@ int main(int argc, char *argv[]) {
 			break;
 
 		case 'f':
+			value = atoi(optarg);
+
+			if (value < 1 || value > 20000) {
+				fprintf(stderr, "f should be an integer between 1 and 20000.\n");
+				exit(1);
+			}
+
+			fundamental = value;
 			break;
 
 		case 'h':
@@ -175,7 +186,7 @@ int main(int argc, char *argv[]) {
 				/* Work out which oscillators are on for this column */
 				for (row = 0; row < 8; row++) {
 					if (byte & (1 << (7 - row))) { /* Lowest frequency oscillator first */
-						freq = 16000 + (500 * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
+						freq = fundamental + (500 * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
 						pixel = 0;
 
 						for (copy = 0; copy < duplicates; copy++) {
