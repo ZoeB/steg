@@ -2,4 +2,4 @@ Understand/fix it being 1/4 of the target frequency
 Refactor code!
 Only fade in/out when the adjacent pixel is off
 Add an exponential / logarithmic option
-Work out the best possible name, preferably a verb.  "hide" or "encode"?  They seem too ambiguous...  If "atos", is the S "sines" or "signal"?
+Work out the best possible name, preferably a verb.  "hide" or "encode"?  They seem too ambiguous...  If "atos", is the S "sines" or "signal"?  How about "Steg"?
