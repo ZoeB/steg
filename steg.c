@@ -1,4 +1,4 @@
-/* ASCII to Sines, by Zoe Blade */
+/* Steg, by Zoe Blade */
 
 /* Convert an ASCII message into a series of sine waves. */
 
@@ -267,7 +267,7 @@ int main(int argc, char *argv[]) {
 
 void usage() {
 	fprintf(stderr, "ASCII to Sines, by Zoe Blade\n\n");
-	fprintf(stderr, "usage: atos [-dfhosw] message\n\n");
+	fprintf(stderr, "usage: steg [-dfhosw] message\n\n");
 	fprintf(stderr, "OPTIONS:\n");
 	fprintf(stderr, "    -d n            duplicates of each line, including original, default 4\n");
 	fprintf(stderr, "    -f n            fundamental harmonic in Hz, default 16000\n");
