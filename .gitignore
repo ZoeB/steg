@@ -1,9 +1,2 @@
-a.out
-caseswap
-charsetread
-charstocolumns
-columnstosines
-out.pcm
-out.wav
-petsciitorom
+*.wav
 steg
