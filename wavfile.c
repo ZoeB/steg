@@ -1,5 +1,8 @@
 /*
-A simple sound library for CSE 20211 by Douglas Thain
+A simple sound library for CSE 20211 by Douglas Thain (dthain@nd.edu).
+This work is made available under the Creative Commons Attribution license.
+https://creativecommons.org/licenses/by/4.0/
+
 For course assignments, you should not change this file.
 For complete documentation, see:
 http://www.nd.edu/~dthain/courses/cse20211/fall2013/wavfile
