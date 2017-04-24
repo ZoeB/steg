@@ -1,4 +1,3 @@
-Understand/fix it being 1/4 of the target frequency
 Refactor code!
 Only fade in/out when the adjacent pixel is off
 Add an exponential / logarithmic option

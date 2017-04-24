@@ -10,6 +10,8 @@
 
 #include "wavfile.c"
 
+#define M_TAU 2 * M_PI
+
 void usage();
 
 FILE *wav;
@@ -233,8 +235,7 @@ int main(int argc, char *argv[]) {
 						pixel = 0;
 
 						for (copy = 0; copy < duplicates; copy++) {
-							/* TODO: Work out why the frequency needs to be multiplied by 4. */
-							pixel += sin((freq + (harmonicSpacing / duplicates * copy)) * 4 * (sample / samplerate) * M_PI_2); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
+							pixel += sin((freq + (harmonicSpacing / duplicates * copy)) * (sample / samplerate) * M_TAU); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
 						}
 
 						pixel /= duplicates;
