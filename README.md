@@ -4,7 +4,9 @@ It's a command line program written in C that converts plain text messages into 
 
 # How do I use it?
 
-Clone the repo with `git clone git@github.com:ZoeB/steg.git`, go into that directory with `cd steg`, compile the program with `make`, and run it with a message you'd like to encode, such as `./steg 'Foo'`.  There are various command line arguments available.  Run `./steg` without a message for a list of them.
+Clone the repo with `git clone git@github.com:ZoeB/steg.git`, go into that directory with `cd steg`, compile the program with `make`, and run it with a message you'd like to encode, such as `./steg 'Foo'`.  Steg will create a new file, out.wav, with your message encoded in it.
+
+There are various command line arguments available.  Run `./steg` without a message for a list of them.
 
 # How can I read the message again?
 
