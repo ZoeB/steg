@@ -18,4 +18,4 @@ The bulk of the program was written by Zoë Blade.  The .wav file writing routin
 
 # What license is it released under?
 
-It's released under a [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+It's released under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
