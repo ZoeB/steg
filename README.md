@@ -11,3 +11,11 @@ There are various command line arguments available.  Run `./steg` without a mess
 # How can I read the message again?
 
 With a spectrogram of the waveform.  There are many ways of generating a spectrogram.  As an example, I'd recommend [Spek](http://spek.cc) (although it currently doesn't work in the latest version of OS X).
+
+# Who made it?
+
+The bulk of the program was written by Zoë Blade.  The .wav file writing routine was written by Douglas Thain.
+
+# What license is it released under?
+
+It's released under a [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
