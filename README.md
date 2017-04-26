@@ -10,7 +10,7 @@ There are various command line arguments available.  Run `./steg` without a mess
 
 # How can I read the message again?
 
-With a spectrogram of the waveform.  There are many ways of generating a spectrogram.  As an example, I'd recommend [Spek](http://spek.cc) (although it currently doesn't work in the latest version of OS X).
+With a spectrogram of the waveform.  There are many ways of generating a spectrogram.  As an example, I'd recommend [Spek](http://spek.cc).
 
 # Who made it?
 
