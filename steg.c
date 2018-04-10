@@ -251,29 +251,27 @@ int main(int argc, char *argv[]) {
 						if (harmonicSpacing == -2) {
 							// Exponential harmonic spacing
 							freq = fundamental * pow(2, row);
-
-							// As per the Nyquist theorem, don't reflect back unobtainably high harmonics
-							if (freq > samplerate / 2) {
-								freq = samplerate / 2;
-							}
-
 							freqNext = fundamental * pow(2, row + 1);
-
-							if (freqNext > samplerate / 2) {
-								freqNext = samplerate / 2;
-							}
-
-							harmonicSpacingCurrent = freqNext - freq;
 						} else if (harmonicSpacing == -1) {
 							// Linear harmonic spacing, as a multiple of the fundamental harmonic
 							freq = fundamental * (row + 1);
-							harmonicSpacingCurrent = fundamental;
+							freqNext = fundamental * (row + 2);
 						} else {
 							// Linear harmonic spacing, as a specified amount
 							freq = fundamental + (harmonicSpacing * row);
-							harmonicSpacingCurrent = harmonicSpacing;
+							freqNext = fundamental + (harmonicSpacing * row);
 						}
 
+						// As per the Nyquist theorem, don't reflect back unobtainably high harmonics
+						if (freq > samplerate / 2) {
+							freq = samplerate / 2;
+						}
+
+						if (freqNext > samplerate / 2) {
+							freqNext = samplerate / 2;
+						}
+
+						harmonicSpacingCurrent = freqNext - freq;
 						pixel = 0;
 
 						for (copy = 0; copy < duplicates; copy++) {
