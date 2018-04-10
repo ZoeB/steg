@@ -244,10 +244,8 @@ int main(int argc, char *argv[]) {
 				/* Work out which oscillators are on for this column */
 				for (row = 0; row < 8; row++) {
 					if (byte & (1 << (7 - row))) { /* Lowest frequency oscillator first */
-						freqLast = fundamental;
-
 						if (harmonicSpacing == -1) {
-							freqLast = freq;
+							freqLast = fundamental * row;
 							freq = fundamental * (row + 1);
 							harmonicSpacingCurrent = freq - freqLast;
 						} else {
