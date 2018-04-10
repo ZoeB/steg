@@ -114,8 +114,8 @@ int value;
 
 int duplicates = 4;
 int fundamental = 16000;
-int harmonicSpacing = -1;
-int harmonicSpacingCurrent = -1;
+int harmonicSpacing = 500;
+int harmonicSpacingCurrent = 500;
 char output[72];
 float samplerate = 44100; /* Ideally, this should be an int, but if I change it to an int, I should check if I need to e.g. multiply it by 1.0 in order to get the formula using it to output a float. */
 int width = 11025;
@@ -315,7 +315,7 @@ void usage() {
 	fprintf(stderr, "    -d n            duplicates of each line, including original, default 4\n");
 	fprintf(stderr, "    -f n            fundamental harmonic in Hz, default 16000\n");
 	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), or lin,\n");
-	fprintf(stderr, "                    or exp, default lin\n");
+	fprintf(stderr, "                    or exp, default 500\n");
 	fprintf(stderr, "    -o filename     file to write to, default out.wav\n");
 	fprintf(stderr, "    -s n            samplerate in Hz, default 44100\n");
 	fprintf(stderr, "    -w n            width of each pixel in samples, default 11025\n\n");
