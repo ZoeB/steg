@@ -96,6 +96,8 @@ int j;
 int messageLength;
 
 uint8_t byte;
+uint8_t byteLast;
+uint8_t byteNext;
 int charOffset;
 
 float sample;
@@ -231,13 +233,25 @@ int main(int argc, char *argv[]) {
 
 		/* The character set file should only contain printable ASCII characters */
 		charOffset = 8 * (c - 32);
+		byte = 0;
 
 		for (col = 0; col < 8; col++) {
+			byteLast = byte;
 			byte = 0;
 
 			for (row = 0; row < 8; row++) {
 				if (charset[charOffset + row] & (1 << (7 - col))) {
 					byte |= 1 << row;
+				}
+			}
+
+			if (col == 7) {
+				byteNext = 0;
+			} else {
+				for (row = 0; row < 8; row++) {
+					if (charset[charOffset + row] & (1 << (6 - col))) {
+						byteNext |= 1 << row;
+					}
 				}
 			}
 
@@ -281,9 +295,9 @@ int main(int argc, char *argv[]) {
 						pixel /= duplicates;
 
 						/* Fuzz off the edges of each pixel to avoid noise bursts */
-						if (sample < 2757) {
+						if (sample < 2757 && !(byteLast & (1 << (7 - row)))) {
 							pixel = pixel / 2727 * sample;
-						} else if (sample > 8268) {
+						} else if (sample > 8268 && !(byteNext & (1 << (7 - row)))) {
 							pixel = pixel / 2727 * (width - sample);
 						}
 
