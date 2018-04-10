@@ -294,7 +294,7 @@ int main(int argc, char *argv[]) {
 
 						pixel /= duplicates;
 
-						/* Fuzz off the edges of each pixel to avoid noise bursts */
+						/* Fuzz off the edges of each off-adjacent pixel to avoid noise bursts */
 						if (sample < 2757 && !(byteLast & (1 << (7 - row)))) {
 							pixel = pixel / 2727 * sample;
 						} else if (sample > 8268 && !(byteNext & (1 << (7 - row)))) {
