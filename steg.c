@@ -243,19 +243,18 @@ int main(int argc, char *argv[]) {
 
 				/* Work out which oscillators are on for this column */
 				for (row = 0; row < 8; row++) {
-					// For exponential use, work out each row's frequency on the offchance it'll be referenced next row, even if the current one is unused
-					freqLast = fundamental;
-
-					if (harmonicSpacing == -1) {
-						freqLast = freq;
-						freq = fundamental * (row + 1);
-						harmonicSpacingCurrent = freq - freqLast;
-					} else {
-						freq = fundamental + (harmonicSpacing * row);
-						harmonicSpacingCurrent = harmonicSpacing;
-					}
-
 					if (byte & (1 << (7 - row))) { /* Lowest frequency oscillator first */
+						freqLast = fundamental;
+
+						if (harmonicSpacing == -1) {
+							freqLast = freq;
+							freq = fundamental * (row + 1);
+							harmonicSpacingCurrent = freq - freqLast;
+						} else {
+							freq = fundamental + (harmonicSpacing * row);
+							harmonicSpacingCurrent = harmonicSpacing;
+						}
+
 						pixel = 0;
 
 						for (copy = 0; copy < duplicates; copy++) {
