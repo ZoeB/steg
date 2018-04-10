@@ -248,6 +248,9 @@ int main(int argc, char *argv[]) {
 					if (byte & (1 << (7 - row))) { /* Lowest frequency oscillator first */
 						if (harmonicSpacing == -2) {
 							// Exponential harmonic spacing
+							freqLast = fundamental * pow(2, row);
+							freq = fundamental * pow(2, row + 1);
+							harmonicSpacingCurrent = freq - freqLast;
 						} else if (harmonicSpacing == -1) {
 							// Linear harmonic spacing, as a multiple of the fundamental harmonic
 							freqLast = fundamental * row;
