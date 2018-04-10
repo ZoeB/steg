@@ -242,7 +242,12 @@ int main(int argc, char *argv[]) {
 				/* Work out which oscillators are on for this column */
 				for (row = 0; row < 8; row++) {
 					if (byte & (1 << (7 - row))) { /* Lowest frequency oscillator first */
-						freq = fundamental + (harmonicSpacing * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
+						if (harmonicSpacing == -1) {
+							freq = fundamental * (row + 1);
+						} else {
+							freq = fundamental + (harmonicSpacing * row);
+						}
+
 						pixel = 0;
 
 						for (copy = 0; copy < duplicates; copy++) {
