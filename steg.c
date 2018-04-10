@@ -161,12 +161,13 @@ int main(int argc, char *argv[]) {
 				break; // Make the harmonic frequency separation exponential, which is the default behaviour anyway
 			} else if (strcmp(optarg, "lin") == 0) {
 				harmonicSpacing = -1;
+				break;
 			}
 
 			value = atoi(optarg);
 
 			if (value < 1 || value > 2500) {
-				fprintf(stderr, "h should be an integer between 1 and 2500, or exp.\n");
+				fprintf(stderr, "h should be an integer between 1 and 2500, or lin, or exp.\n");
 				exit(1);
 			}
 
