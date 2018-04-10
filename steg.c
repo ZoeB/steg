@@ -245,9 +245,9 @@ int main(int argc, char *argv[]) {
 				}
 			}
 
-			if (col == 7) {
-				byteNext = 0;
-			} else {
+			byteNext = 0;
+
+			if (col != 7) {
 				for (row = 0; row < 8; row++) {
 					if (charset[charOffset + row] & (1 << (6 - col))) {
 						byteNext |= 1 << row;
