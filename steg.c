@@ -100,7 +100,7 @@ int charOffset;
 
 float sample;
 int freq;
-int freqLast;
+int freqNext;
 int col;
 int row;
 int copy;
@@ -252,15 +252,14 @@ int main(int argc, char *argv[]) {
 								freq = fundamental;
 								harmonicSpacingCurrent = fundamental;
 							} else {
-								freqLast = fundamental * pow(2, row - 1);
 								freq = fundamental * pow(2, row);
-								harmonicSpacingCurrent = freq - freqLast;
+								freqNext = fundamental * pow(2, row + 1);
+								harmonicSpacingCurrent = freqNext - freq;
 							}
 						} else if (harmonicSpacing == -1) {
 							// Linear harmonic spacing, as a multiple of the fundamental harmonic
-							freqLast = fundamental * row;
 							freq = fundamental * (row + 1);
-							harmonicSpacingCurrent = freq - freqLast;
+							harmonicSpacingCurrent = fundamental;
 						} else {
 							// Linear harmonic spacing, as a specified amount
 							freq = fundamental + (harmonicSpacing * row);
