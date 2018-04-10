@@ -113,7 +113,7 @@ int value;
 
 int duplicates = 4;
 int fundamental = 16000;
-int harmonicSpacing = 500;
+int harmonicSpacing = -1;
 char output[72];
 float samplerate = 44100; /* Ideally, this should be an int, but if I change it to an int, I should check if I need to e.g. multiply it by 1.0 in order to get the formula using it to output a float. */
 int width = 11025;
@@ -155,10 +155,14 @@ int main(int argc, char *argv[]) {
 			break;
 
 		case 'h':
+			if (strcmp(optarg, "exp") == 0) {
+				break; // Make the harmonic frequency separation exponential, which is the default behaviour anyway
+			}
+
 			value = atoi(optarg);
 
 			if (value < 1 || value > 2500) {
-				fprintf(stderr, "h should be an integer between 1 and 2500.\n");
+				fprintf(stderr, "h should be an integer between 1 and 2500, or exp.\n");
 				exit(1);
 			}
 
@@ -279,8 +283,8 @@ void usage() {
 	fprintf(stderr, "OPTIONS:\n");
 	fprintf(stderr, "    -d n            duplicates of each line, including original, default 4\n");
 	fprintf(stderr, "    -f n            fundamental harmonic in Hz, default 16000\n");
-	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), default\n");
-	fprintf(stderr, "                    500\n");
+	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), or exp,\n");
+	fprintf(stderr, "                    default exp\n");
 	fprintf(stderr, "    -o filename     file to write to, default out.wav\n");
 	fprintf(stderr, "    -s n            samplerate in Hz, default 44100\n");
 	fprintf(stderr, "    -w n            width of each pixel in samples, default 11025\n\n");
