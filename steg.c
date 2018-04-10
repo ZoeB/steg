@@ -100,6 +100,7 @@ int charOffset;
 
 float sample;
 int freq;
+int freqLast;
 int col;
 int row;
 int copy;
@@ -114,6 +115,7 @@ int value;
 int duplicates = 4;
 int fundamental = 16000;
 int harmonicSpacing = -1;
+int harmonicSpacingCurrent = -1;
 char output[72];
 float samplerate = 44100; /* Ideally, this should be an int, but if I change it to an int, I should check if I need to e.g. multiply it by 1.0 in order to get the formula using it to output a float. */
 int width = 11025;
@@ -242,10 +244,15 @@ int main(int argc, char *argv[]) {
 				/* Work out which oscillators are on for this column */
 				for (row = 0; row < 8; row++) {
 					if (byte & (1 << (7 - row))) { /* Lowest frequency oscillator first */
+						freqLast = fundamental;
+
 						if (harmonicSpacing == -1) {
+							freqLast = freq;
 							freq = fundamental * (row + 1);
+							harmonicSpacingCurrent = freq - freqLast;
 						} else {
 							freq = fundamental + (harmonicSpacing * row);
+							harmonicSpacingCurrent = harmonicSpacing;
 						}
 
 						pixel = 0;
