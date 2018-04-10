@@ -295,10 +295,10 @@ int main(int argc, char *argv[]) {
 						pixel /= duplicates;
 
 						/* Fuzz off the edges of each off-adjacent pixel to avoid noise bursts */
-						if (sample < 2757 && !(byteLast & (1 << (7 - row)))) {
-							pixel = pixel / 2727 * sample;
-						} else if (sample > 8268 && !(byteNext & (1 << (7 - row)))) {
-							pixel = pixel / 2727 * (width - sample);
+						if (sample < samplerate / 16 && !(byteLast & (1 << (7 - row)))) {
+							pixel = pixel / (samplerate / 16) * sample;
+						} else if (sample > (samplerate / 16 * 3) && !(byteNext & (1 << (7 - row)))) {
+							pixel = pixel / (samplerate / 16) * (width - sample);
 						}
 
 						/* Fuzz off the top and bottom rows too */
