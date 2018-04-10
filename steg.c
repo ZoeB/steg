@@ -259,7 +259,7 @@ int main(int argc, char *argv[]) {
 						} else {
 							// Linear harmonic spacing, as a specified amount
 							freq = fundamental + (harmonicSpacing * row);
-							freqNext = fundamental + (harmonicSpacing * row);
+							freqNext = fundamental + (harmonicSpacing * (row + 1));
 						}
 
 						// As per the Nyquist theorem, don't reflect back unobtainably high harmonics
