@@ -114,8 +114,8 @@ int value;
 
 int duplicates = 4;
 int fundamental = 16000;
-int harmonicSpacing = -1;
-int harmonicSpacingCurrent = -1;
+int harmonicSpacing = -2;
+int harmonicSpacingCurrent = -2;
 char output[72];
 float samplerate = 44100; /* Ideally, this should be an int, but if I change it to an int, I should check if I need to e.g. multiply it by 1.0 in order to get the formula using it to output a float. */
 int width = 11025;
@@ -159,6 +159,8 @@ int main(int argc, char *argv[]) {
 		case 'h':
 			if (strcmp(optarg, "exp") == 0) {
 				break; // Make the harmonic frequency separation exponential, which is the default behaviour anyway
+			} else if (strcmp(optarg, "lin") == 0) {
+				harmonicSpacing = -1;
 			}
 
 			value = atoi(optarg);
@@ -244,11 +246,15 @@ int main(int argc, char *argv[]) {
 				/* Work out which oscillators are on for this column */
 				for (row = 0; row < 8; row++) {
 					if (byte & (1 << (7 - row))) { /* Lowest frequency oscillator first */
-						if (harmonicSpacing == -1) {
+						if (harmonicSpacing == -2) {
+							// Exponential harmonic spacing
+						} else if (harmonicSpacing == -1) {
+							// Linear harmonic spacing, as a multiple of the fundamental harmonic
 							freqLast = fundamental * row;
 							freq = fundamental * (row + 1);
 							harmonicSpacingCurrent = freq - freqLast;
 						} else {
+							// Linear harmonic spacing, as a specified amount
 							freq = fundamental + (harmonicSpacing * row);
 							harmonicSpacingCurrent = harmonicSpacing;
 						}
@@ -293,8 +299,8 @@ void usage() {
 	fprintf(stderr, "OPTIONS:\n");
 	fprintf(stderr, "    -d n            duplicates of each line, including original, default 4\n");
 	fprintf(stderr, "    -f n            fundamental harmonic in Hz, default 16000\n");
-	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), or exp,\n");
-	fprintf(stderr, "                    default exp\n");
+	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), or lin,\n");
+	fprintf(stderr, "                    or exp, default exp\n");
 	fprintf(stderr, "    -o filename     file to write to, default out.wav\n");
 	fprintf(stderr, "    -s n            samplerate in Hz, default 44100\n");
 	fprintf(stderr, "    -w n            width of each pixel in samples, default 11025\n\n");
