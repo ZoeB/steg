@@ -100,6 +100,7 @@ int charOffset;
 
 float sample;
 int freq;
+int freqNext;
 int col;
 int row;
 int copy;
@@ -114,6 +115,7 @@ int value;
 int duplicates = 4;
 int fundamental = 16000;
 int harmonicSpacing = 500;
+int harmonicSpacingCurrent = 500;
 char output[72];
 float samplerate = 44100; /* Ideally, this should be an int, but if I change it to an int, I should check if I need to e.g. multiply it by 1.0 in order to get the formula using it to output a float. */
 int width = 11025;
@@ -155,10 +157,18 @@ int main(int argc, char *argv[]) {
 			break;
 
 		case 'h':
+			if (strcmp(optarg, "exp") == 0) {
+				harmonicSpacing = -2;
+				break;
+			} else if (strcmp(optarg, "lin") == 0) {
+				harmonicSpacing = -1;
+				break;
+			}
+
 			value = atoi(optarg);
 
 			if (value < 1 || value > 2500) {
-				fprintf(stderr, "h should be an integer between 1 and 2500.\n");
+				fprintf(stderr, "h should be an integer between 1 and 2500, or lin, or exp.\n");
 				exit(1);
 			}
 
@@ -238,11 +248,34 @@ int main(int argc, char *argv[]) {
 				/* Work out which oscillators are on for this column */
 				for (row = 0; row < 8; row++) {
 					if (byte & (1 << (7 - row))) { /* Lowest frequency oscillator first */
-						freq = fundamental + (harmonicSpacing * row); /* Hardwire each pixel height as a single sine wave "beam" 500Hz apart from its neighbours, starting at 16kHz, for now */
+						if (harmonicSpacing == -2) {
+							// Exponential harmonic spacing
+							freq = fundamental * pow(2, row);
+							freqNext = fundamental * pow(2, row + 1);
+						} else if (harmonicSpacing == -1) {
+							// Linear harmonic spacing, as a multiple of the fundamental harmonic
+							freq = fundamental * (row + 1);
+							freqNext = fundamental * (row + 2);
+						} else {
+							// Linear harmonic spacing, as a specified amount
+							freq = fundamental + (harmonicSpacing * row);
+							freqNext = fundamental + (harmonicSpacing * (row + 1));
+						}
+
+						// As per the Nyquist theorem, don't reflect back unobtainably high harmonics
+						if (freq > samplerate / 2) {
+							freq = samplerate / 2;
+						}
+
+						if (freqNext > samplerate / 2) {
+							freqNext = samplerate / 2;
+						}
+
+						harmonicSpacingCurrent = freqNext - freq;
 						pixel = 0;
 
 						for (copy = 0; copy < duplicates; copy++) {
-							pixel += sin((freq + (harmonicSpacing / duplicates * copy)) * (sample / samplerate) * M_TAU); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
+							pixel += sin((freq + (harmonicSpacingCurrent / duplicates * copy)) * (sample / samplerate) * M_TAU); /* The number of cycles per second is multiplied by the number of seconds.  Even though the latter's between 0 and 0.25, the frequencies bring it up.  Hardwire CD quality sample rate for now. */
 						}
 
 						pixel /= duplicates;
@@ -279,8 +312,8 @@ void usage() {
 	fprintf(stderr, "OPTIONS:\n");
 	fprintf(stderr, "    -d n            duplicates of each line, including original, default 4\n");
 	fprintf(stderr, "    -f n            fundamental harmonic in Hz, default 16000\n");
-	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), default\n");
-	fprintf(stderr, "                    500\n");
+	fprintf(stderr, "    -h n            harmonic spacing in Hz (height of each pixel in Hz), or lin,\n");
+	fprintf(stderr, "                    or exp, default 500\n");
 	fprintf(stderr, "    -o filename     file to write to, default out.wav\n");
 	fprintf(stderr, "    -s n            samplerate in Hz, default 44100\n");
 	fprintf(stderr, "    -w n            width of each pixel in samples, default 11025\n\n");
